@@ -72,7 +72,7 @@ class Server:
             curr_index += 1
         return {
             "index": index,
-            "data": data,
-            "page_size": page_size,
             "next_index": curr_index,
+            "page_size": page_size,
+            "data": data,
         }
