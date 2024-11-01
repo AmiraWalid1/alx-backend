@@ -56,18 +56,22 @@ class Server:
         assert index is not None and 0 <= index < len(self.dataset()), \
             "Out of range"
         data = []
-        curr_index = index
-        cnt = 0
+        next_index = index + page_size
+        i = index
 
-        while cnt < page_size and curr_index < len(self.dataset()):
-            if curr_index in self.indexed_dataset():
-                data.append(self.__indexed_dataset[curr_index])
-                cnt += 1
-            curr_index += 1
+        while i < next_index:
+            if i not in self.indexed_dataset():
+                i += 1
+                next_index += 1
+                continue
+            data.append(self.__indexed_dataset[i])
+            i += 1
+            
+            
 
         return {
             "index": index,
             "data": data,
             "page_size": len(data),
-            "next_index": curr_index,
+            "next_index": next_index,
         }
