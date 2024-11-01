@@ -64,7 +64,7 @@ class Server:
                 data.append(self.__indexed_dataset[curr_index])
                 cnt += 1
             curr_index += 1
-    
+
         return {
             "index": index,
             "data": data,
