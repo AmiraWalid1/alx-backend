@@ -42,27 +42,32 @@ class Server:
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
         """
-        Returns a dictionary with pagination information, resilient to deletions.
+        Returns a dictionary with pagination information,
+        resilient to deletions.
 
         Parameters:
             index (int): The starting index (0-based).
             page_size (int): The number of items per page.
 
         Returns:
-            Dict: A dictionary containing 'index', 'data', 'page_size', and 'next_index'.
+            Dict: A dictionary containing 'index', 'data', 'page_size',
+            and 'next_index'.
         """
-        assert index is not None and 0 <= index < len(self.dataset()), "Out of range"
+        assert index is not None and 0 <= index < len(self.dataset()), \
+            "Out of range"
         data = []
         curr_index = index
         cnt = 0
+
         while cnt < page_size and curr_index < len(self.dataset()):
             if curr_index in self.indexed_dataset():
                 data.append(self.__indexed_dataset[curr_index])
                 cnt += 1
             curr_index += 1
+    
         return {
             "index": index,
-            "next_index": curr_index,
-            "page_size": page_size,
             "data": data,
+            "page_size": len(data),
+            "next_index": curr_index,
         }
