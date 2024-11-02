@@ -29,7 +29,7 @@ class Server:
 
         return self.__dataset
 
-    def indexed_dataset(self) -> dict[int, List]:
+    def indexed_dataset(self) -> Dict[int, List]:
         """Dataset indexed by sorting position, starting at 0
         """
         if self.__indexed_dataset is None:
@@ -40,7 +40,7 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> dict:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
         Returns a dictionary with pagination information,
         resilient to deletions.
@@ -66,8 +66,6 @@ class Server:
                 continue
             data.append(self.__indexed_dataset[i])
             i += 1
-            
-            
 
         return {
             "index": index,
